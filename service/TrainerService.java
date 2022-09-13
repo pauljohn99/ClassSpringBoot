@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Trainer;
 import com.example.demo.repository.TrainerRepository;
 
@@ -19,8 +21,11 @@ public class TrainerService {
 		return trainerrepository.findAll();
 	}
 
-	public Optional<Trainer> getTrainer(Long id) {
-		return trainerrepository.findById(id);
+	public ResponseEntity<Trainer> getTrainer(Long id) 
+		throws ResourceNotFoundException {
+			Trainer trainer=trainerrepository.findById(id)
+					 .orElseThrow(() -> new ResourceNotFoundException("Trainer not found for this id :: " + id));
+	        return ResponseEntity.ok().body(trainer);
 	}
 
 	public Trainer postTrainer(Trainer trainer) {

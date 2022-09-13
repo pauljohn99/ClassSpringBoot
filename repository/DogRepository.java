@@ -12,4 +12,5 @@ import com.example.demo.model.Dog;
 public interface DogRepository extends JpaRepository<Dog, Long>{
 	public List<Dog> findByTrainerId(long Id);
 
+
 }

@@ -19,7 +19,10 @@ public class Trainer {
 	public Trainer() {
 		super();
 	}
-
+	public Trainer(Long id) {
+		this.id=id;
+		
+	}
 	public Trainer(String name, String grade) {
 		this.name = name;
 		this.grade = grade;

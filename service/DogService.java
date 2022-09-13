@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Dog;
 import com.example.demo.repository.DogRepository;
 
@@ -17,12 +19,14 @@ public class DogService {
 	private DogRepository dogrepository;
 
 	public List<Dog> getall(long trainerId) {
-		List<Dog> dogs=new ArrayList<>();
 		return dogrepository.findByTrainerId(trainerId);
 	}
 
-	public Optional<Dog> getdog(long id) {
-		return dogrepository.findById(id);
+	public ResponseEntity<Dog> getdog(long id) 
+			throws ResourceNotFoundException {
+		Dog dog=dogrepository.findById(id)
+				 .orElseThrow(() -> new ResourceNotFoundException("dog not found for this id :: " + id));
+        return ResponseEntity.ok().body(dog);
 	}
 
 	public void postdog(Dog dog) {
@@ -41,5 +45,6 @@ public class DogService {
 		dogrepository.deleteById(id);
 		
 	}
-
+	
+	
 }
