@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "dogs")
 public class Dog {
@@ -17,6 +19,7 @@ public class Dog {
 	private String name;
 	private String breed;
 
+	@JsonIgnore
 	@ManyToOne()
 	private Trainer trainer;
 

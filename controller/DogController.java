@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Dog;
 import com.example.demo.model.Trainer;
-import com.example.demo.service.DogService;
+import com.example.demo.service.DogServiceImplementation;
 
 @RestController
 public class DogController {
 
 	@Autowired
-	private DogService dogservice;
+	private DogServiceImplementation dogservice;
 
 	@RequestMapping("/trainer/{id}/dog")
-	public List<Dog> getall(@PathVariable long id) {
-		return dogservice.getall(id);
+	public Set<Dog> getall(@PathVariable long id) {
+		return dogservice.getall(id);	 	
 	}
 
 	@RequestMapping("/dog/{id}")
@@ -35,7 +35,7 @@ public class DogController {
 	@RequestMapping(value = "/trainer/{id}/dog", method = RequestMethod.POST)
 	public void postdog(@RequestBody Dog dog,@PathVariable Long id) {
 		dog.setTrainer( new Trainer(id));
-		dogservice.postdog(dog);
+		dogservice.postdog(dog,id);
 	}
 
 	@RequestMapping(value = "/trainer/{trainerid}/dog/{id}", method = RequestMethod.PUT)

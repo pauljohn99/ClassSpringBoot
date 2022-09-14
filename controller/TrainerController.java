@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Trainer;
-import com.example.demo.service.TrainerService;
+import com.example.demo.service.TrainerServiceImplementation;
 
 @RestController
 public class TrainerController {
 
 	@Autowired
-	private TrainerService Trainerservice;
+	private TrainerServiceImplementation Trainerservice;
 
 	@RequestMapping("/trainer")
 	public List<Trainer> getall() {

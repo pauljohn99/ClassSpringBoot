@@ -12,7 +12,7 @@ import com.example.demo.model.Trainer;
 import com.example.demo.repository.TrainerRepository;
 
 @Service
-public class TrainerService {
+public class TrainerServiceImplementation implements TrainerServiceInterface {
 
 	@Autowired
 	private TrainerRepository trainerrepository;

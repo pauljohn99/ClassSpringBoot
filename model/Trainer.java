@@ -1,9 +1,15 @@
 package com.example.demo.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -12,17 +18,30 @@ public class Trainer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String name;
 	private String grade;
+
+	@OneToMany (fetch = FetchType.EAGER, mappedBy = "trainer")
+	private Set<Dog> dogs = new HashSet<>();
+
+	public Set<Dog> getDogs() {
+		return dogs;
+	}
+
+	public void setDogs(Set<Dog> dogs) {
+		this.dogs = dogs;
+	}
 
 	public Trainer() {
 		super();
 	}
+
 	public Trainer(Long id) {
-		this.id=id;
-		
+		this.id = id;
+
 	}
+
 	public Trainer(String name, String grade) {
 		this.name = name;
 		this.grade = grade;
