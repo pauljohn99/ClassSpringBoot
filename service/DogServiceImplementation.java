@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -33,6 +34,10 @@ public class DogServiceImplementation implements DogServiceInterface {
 		return null;
 		
 	}
+	
+	public  List<Dog> getalldog() {
+		return  (List<Dog>) dogrepository.findAll(); 
+	}
 
 	public ResponseEntity<Dog> getdog(long id) throws ResourceNotFoundException {
 		Dog dog = dogrepository.findById(id)
@@ -45,15 +50,19 @@ public class DogServiceImplementation implements DogServiceInterface {
 
 	}
 
-	public void putdog(Dog dog, Long id) {
+	public void putdog(Dog dog, Long id) throws ResourceNotFoundException {
+		if(!dogrepository.existsById(id))
+			throw new ResourceNotFoundException("dog not found for this id :: " + id);
 		Dog newdog = dogrepository.findById(id).get();
 		newdog.setName(dog.getName());
 		newdog.setBreed(dog.getBreed());
 		dogrepository.save(newdog);
 	}
 
-	public void deletedog(Long id) {
-		dogrepository.deleteById(id);
+	public void deletedog(Long id) throws ResourceNotFoundException {
+		Dog dog = dogrepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("dog not found for this id :: " + id));
+		dogrepository.delete(dog);
 
 	}
 

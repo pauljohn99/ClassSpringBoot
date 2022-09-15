@@ -1,8 +1,6 @@
 package com.example.demo.service;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -33,7 +31,10 @@ public class TrainerServiceImplementation implements TrainerServiceInterface {
 
 	}
 
-	public void updateTrainer(Trainer trainer,Long id) {
+	public void updateTrainer(Trainer trainer,Long id) throws ResourceNotFoundException {
+		if(!trainerrepository.existsById(id))
+		throw new ResourceNotFoundException("Trainer not found for this id :: " + id);
+		
 		Trainer newtrainer=trainerrepository.findById(id).get();
 		newtrainer.setName(trainer.getName());
 		newtrainer.setGrade(trainer.getGrade());
@@ -41,8 +42,10 @@ public class TrainerServiceImplementation implements TrainerServiceInterface {
 		
 	}
 
-	public void deleteTrainer(Long id) {
-		trainerrepository.deleteById(id);
+	public void deleteTrainer(Long id) throws ResourceNotFoundException {
+		Trainer trainer=trainerrepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Trainer not found for this id :: " + id));
+		trainerrepository.delete(trainer);
 
 	}
 

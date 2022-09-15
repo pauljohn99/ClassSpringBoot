@@ -14,8 +14,8 @@ public interface TrainerServiceInterface {
 
 	public Trainer postTrainer(Trainer trainer);
 
-	public void updateTrainer(Trainer trainer, Long id);
+	public void updateTrainer(Trainer trainer, Long id) throws ResourceNotFoundException;
 
-	public void deleteTrainer(Long id);
+	public void deleteTrainer(Long id) throws ResourceNotFoundException;
 
 }

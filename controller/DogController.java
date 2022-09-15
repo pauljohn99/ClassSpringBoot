@@ -14,19 +14,24 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Dog;
 import com.example.demo.model.Trainer;
-import com.example.demo.service.DogServiceImplementation;
+import com.example.demo.service.DogServiceInterface;
 
 @RestController
 public class DogController {
 
 	@Autowired
-	private DogServiceImplementation dogservice;
+	private DogServiceInterface dogservice;
 
 	@RequestMapping("/trainer/{id}/dog")
 	public Set<Dog> getall(@PathVariable long id) {
 		return dogservice.getall(id);	 	
 	}
 
+	@RequestMapping("/dog")
+	public  List<Dog> getdog()  {
+		return (List<Dog>) dogservice.getalldog();
+	}
+	
 	@RequestMapping("/dog/{id}")
 	public ResponseEntity<Dog> getdog(@PathVariable Long id) throws ResourceNotFoundException {
 		return dogservice.getdog(id);
@@ -39,12 +44,12 @@ public class DogController {
 	}
 
 	@RequestMapping(value = "/trainer/{trainerid}/dog/{id}", method = RequestMethod.PUT)
-	public void updatedog(@RequestBody Dog dog,@PathVariable Long id,@PathVariable Long trainerid) {
+	public void updatedog(@RequestBody Dog dog,@PathVariable Long id,@PathVariable Long trainerid) throws ResourceNotFoundException {
 		dog.setTrainer(new Trainer(trainerid));
 		dogservice.putdog(dog,id);
 	}
 	@RequestMapping(value = "/trainer/{trainerid}/dog/{id}", method = RequestMethod.DELETE)
-	public void deletedog(@PathVariable Long id) {
+	public void deletedog(@PathVariable Long id) throws ResourceNotFoundException {
 		dogservice.deletedog(id);
 	}
 }

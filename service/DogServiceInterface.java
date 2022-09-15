@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.http.ResponseEntity;
@@ -14,8 +15,10 @@ public interface DogServiceInterface {
 
 	public void postdog(Dog dog, Long id);
 
-	public void putdog(Dog dog, Long id);
+	public void putdog(Dog dog, Long id) throws ResourceNotFoundException;
 
-	public void deletedog(Long id);
+	public void deletedog(Long id) throws ResourceNotFoundException;
+
+	public  List<Dog> getalldog();
 
 }

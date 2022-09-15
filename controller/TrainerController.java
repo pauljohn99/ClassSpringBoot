@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Trainer;
-import com.example.demo.service.TrainerServiceImplementation;
+import com.example.demo.service.TrainerServiceInterface;
 
 @RestController
 public class TrainerController {
 
 	@Autowired
-	private TrainerServiceImplementation Trainerservice;
+	private TrainerServiceInterface Trainerservice;
 
 	@RequestMapping("/trainer")
 	public List<Trainer> getall() {
@@ -37,11 +36,11 @@ public class TrainerController {
 	}
 
 	@RequestMapping(value = "/trainer/{id}", method = RequestMethod.PUT)
-	public void updateTrainer(@RequestBody Trainer trainer,@PathVariable Long id) {
+	public void updateTrainer(@RequestBody Trainer trainer,@PathVariable Long id) throws ResourceNotFoundException {
 		Trainerservice.updateTrainer(trainer,id);
 	}
 	@RequestMapping(value = "/trainer/{id}", method = RequestMethod.DELETE)
-	public void deleteTrainer(@PathVariable Long id) {
+	public void deleteTrainer(@PathVariable Long id) throws ResourceNotFoundException {
 		Trainerservice.deleteTrainer(id);
 	}
 }
