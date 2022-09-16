@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.DTO.TrainerDto;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Trainer;
 import com.example.demo.service.TrainerServiceInterface;
@@ -26,17 +27,17 @@ public class TrainerController {
 	}
 
 	@RequestMapping("/trainer/{id}")
-	public ResponseEntity<Trainer> getTrainer(@PathVariable Long id) throws ResourceNotFoundException {
+	public ResponseEntity<TrainerDto> getTrainer(@PathVariable Long id) throws ResourceNotFoundException {
 		return Trainerservice.getTrainer(id);
 	}
 
 	@RequestMapping(value = "/trainer", method = RequestMethod.POST)
-	public void postTrainer(@RequestBody Trainer trainer) {
+	public void postTrainer(@RequestBody TrainerDto trainer) {
 		Trainerservice.postTrainer(trainer);
 	}
 
 	@RequestMapping(value = "/trainer/{id}", method = RequestMethod.PUT)
-	public void updateTrainer(@RequestBody Trainer trainer,@PathVariable Long id) throws ResourceNotFoundException {
+	public void updateTrainer(@RequestBody TrainerDto trainer,@PathVariable Long id) throws ResourceNotFoundException {
 		Trainerservice.updateTrainer(trainer,id);
 	}
 	@RequestMapping(value = "/trainer/{id}", method = RequestMethod.DELETE)

@@ -4,17 +4,18 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
+import com.example.demo.DTO.TrainerDto;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Trainer;
 
 public interface TrainerServiceInterface {
 	public List<Trainer> getall();
 
-	public ResponseEntity<Trainer> getTrainer(Long id) throws ResourceNotFoundException;
+	public ResponseEntity<TrainerDto> getTrainer(Long id) throws ResourceNotFoundException;
 
-	public Trainer postTrainer(Trainer trainer);
+	public Trainer postTrainer(TrainerDto trainer);
 
-	public void updateTrainer(Trainer trainer, Long id) throws ResourceNotFoundException;
+	public void updateTrainer(TrainerDto trainer, Long id) throws ResourceNotFoundException;
 
 	public void deleteTrainer(Long id) throws ResourceNotFoundException;
 

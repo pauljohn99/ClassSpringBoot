@@ -1,9 +1,7 @@
 package com.example.demo.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "trainers")
@@ -21,15 +21,16 @@ public class Trainer {
 
 	private String name;
 	private String grade;
+	
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "trainer")
+	private List<Dog> dogs = new ArrayList<>();
 
-	@OneToMany (fetch = FetchType.EAGER, mappedBy = "trainer")
-	private Set<Dog> dogs = new HashSet<>();
-
-	public Set<Dog> getDogs() {
+	public List<Dog> getDogs() {
 		return dogs;
 	}
 
-	public void setDogs(Set<Dog> dogs) {
+	public void setDogs(List<Dog> dogs) {
 		this.dogs = dogs;
 	}
 
