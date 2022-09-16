@@ -19,5 +19,5 @@ public interface DogServiceInterface {
 
 	public List<Dog> getalldog();
 
-	public void postdog(DogTrainerDto dog);
+	public void postdog(DogTrainerDto dog, Long id) throws ResourceNotFoundException;
 }

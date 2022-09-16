@@ -13,7 +13,6 @@ import com.example.demo.DTO.DogDto;
 import com.example.demo.DTO.DogTrainerDto;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Dog;
-import com.example.demo.model.Trainer;
 import com.example.demo.service.DogServiceInterface;
 
 @RestController
@@ -38,9 +37,9 @@ public class DogController {
 	}
 
 	@RequestMapping(value = "/trainer/{id}/dog", method = RequestMethod.POST)
-	public void postdog(@RequestBody DogTrainerDto dog, @PathVariable Long id) {
-		dog.setTrainer(new Trainer(id));
-		dogservice.postdog(dog);
+	public void postdog(@RequestBody DogTrainerDto dog, @PathVariable Long id) throws ResourceNotFoundException {
+		
+		dogservice.postdog(dog,id);
 	}
 
 	@RequestMapping(value = "/dog/{id}", method = RequestMethod.PUT)
@@ -49,7 +48,7 @@ public class DogController {
 		dogservice.putdog(dog, id);
 	}
 
-	@RequestMapping(value = "/trainer/{trainerid}/dog/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/dog/{id}", method = RequestMethod.DELETE)
 	public void deletedog(@PathVariable Long id) throws ResourceNotFoundException {
 		dogservice.deletedog(id);
 	}

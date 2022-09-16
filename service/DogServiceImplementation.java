@@ -50,8 +50,12 @@ public class DogServiceImplementation implements DogServiceInterface {
 		return ResponseEntity.ok().body(dogdto);
 	}
 
-	public void postdog(DogTrainerDto dog) {
+	public void postdog(DogTrainerDto dog, Long id) throws ResourceNotFoundException {
+		Dog dogs = dogrepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("dog not found for this id :: " + id));
+
 		Dog dog1 = new Dog();
+		dog1.setTrainer(new Trainer(id));
 		dog1.setBreed(dog.getBreed());
 		dog1.setName(dog.getName());
 		dogrepository.save(dog1);
