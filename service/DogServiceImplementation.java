@@ -51,8 +51,8 @@ public class DogServiceImplementation implements DogServiceInterface {
 	}
 
 	public void postdog(DogTrainerDto dog, Long id) throws ResourceNotFoundException {
-		Dog dogs = dogrepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("dog not found for this id :: " + id));
+		Trainer trainer = trainerRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("trainer not found for this id :: " + id));
 
 		Dog dog1 = new Dog();
 		dog1.setTrainer(new Trainer(id));
