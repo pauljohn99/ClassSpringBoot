@@ -55,7 +55,7 @@ public class DogServiceImplementation implements DogServiceInterface {
 				.orElseThrow(() -> new ResourceNotFoundException("trainer not found for this id :: " + id));
 
 		Dog dog1 = new Dog();
-		dog1.setTrainer(new Trainer(id));
+		dog1.setTrainer(trainer);
 		dog1.setBreed(dog.getBreed());
 		dog1.setName(dog.getName());
 		dogrepository.save(dog1);
